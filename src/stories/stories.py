@@ -93,7 +93,7 @@ class InstagramScraper(object):
         # session.mount('https://', HTTPAdapter(max_retries=...))
         # only covers failed DNS lookups, socket connections and connection timeouts
         # It doesnt work when server terminate connection while response is downloaded
-        retry = 0
+        retry = 10
         retry_delay = RETRY_DELAY
         while True:
             if self.quit:
@@ -179,7 +179,7 @@ class InstagramScraper(object):
             file = folder + 'stories' +data+'.csv'
 
         else:
-            file=folder + file + '.csv'
+            file=folder+file+'.csv'
 
         try:
             arquivo = open(file, 'a')
@@ -193,13 +193,13 @@ class InstagramScraper(object):
 
                 dst = file
 
+
                 # Get the user metadata.
                 shared_data = self.get_shared_data(username)
-                user = self.deep_get(shared_data, 'entry_data.ProfilePage[0].graphql.user')
-                if user is None:
-                    print ('instagram'+' '+ username+' ' +'não existe'+'\n')
-                else:
+                if shared_data is not None:
+                    user = self.deep_get(shared_data, 'entry_data.ProfilePage[0].graphql.user')
                     self.get_stories(dst, future_to_item, user, username)
+                
         finally:
             self.quit = True
             self.logout()            
@@ -209,18 +209,15 @@ class InstagramScraper(object):
         if self.logged_in and \
                 ('story-image' in self.media_types or 'story-video' in self.media_types):
             # Get the user's stories.
-            #print (user['id'])
-            if user['id'] is not None:
-                stories = self.fetch_stories(user['id'])
-                iter = tqdm.tqdm(stories, desc='{0} stories'.format(username), unit=" media")
-                print(iter.total)
-
+            stories = self.fetch_stories(user['id'])
+            iter = tqdm.tqdm(stories, desc='{0} stories'.format(username), unit=" media")
+            print(iter.total)
             agora = datetime.now()
 
             arquivo = open('./'+dst, 'a')
 
             arquivo.write(username+';'+str(agora.day)+'/'+str(agora.month)+'/'+str(agora.year)+'-'+
-            	str(agora.hour)+':'+str(agora.minute)+';'+str(iter.total)+'\n')
+                str(agora.hour)+':'+str(agora.minute)+';'+str(iter.total)+'\n')
             arquivo.close()
 
     def get_shared_data(self, username=''):
@@ -341,6 +338,8 @@ def main():
     scraper.scrape(file)
 
 
+
+
+
 if __name__ == '__main__':
     main()
-
