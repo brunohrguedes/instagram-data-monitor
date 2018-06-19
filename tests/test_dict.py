@@ -1,5 +1,5 @@
 import unittest
-from src.dict import utf8_to_utf8_right
+from core.dict import utf8_to_utf8_right
 
 class TesteAtor(unittest.TestCase):
 	def teste_kahlo(self):
