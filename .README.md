@@ -1,96 +1,56 @@
-# Monitor de Dados do Instagram
+### Requisitos
+	- python 3.6 ou superior
+### Recomenda-se
 
-Este repositório compõe projeto de pesquisa com foco empírico nas eleições brasileiras de 2018 do grupo de pesquisa [Resocie](http://resocie.org) do [Instituto de Ciência Política - IPOL](http://ipol.unb.br/) com o apoio técnico do [Departamento de Computação - CIC](http://www.cic.unb.br/) da [Universidade de Brasília - UnB](http://unb.br).
+- [docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+- [pós-instalação](https://docs.docker.com/install/linux/linux-postinstall/)
+- [docker-compose](https://docs.docker.com/compose/install/#prerequisites)
++ No caso de o seu sistema não ser Linux , veja siga as (instruções específicas)[https://docs.docker.com/install] para o seu sistema.
 
-O projeto consiste na coleta sistemática de informações quantitativas da plataforma Instagram com o objetivo de subsidiar a análise do comportamento político de alguns atores da cena eleitoral durante o período de campanha. Além de seu objetivo finalístico para a coleta de dados, o projeto tem também por intuito servir de material de estudo dos alunos da disciplina Engenharia de Software do Departamento de Ciência da Computação da UnB no 1º semestre de 2018. 
+* Nota: as instruções abaixo supõem que se esteja utilizando um terminal em ambiente Mac/Linux e que o diretório atual é o logo acima da pasta *src* deste projeto. No caso se estar rodando via *docker*, o sistema operacional pode ser Windows 10.
 
-As instruções a seguir trazem orientações para aqueles que quiserem contribuir com a iniciativa.
+##   Rodando nativamente em sua máquina
 
-## Preparar ambiente
+* Importante: antes de mais nada, é preciso editar o arquivo *main.py*, localizado dentro da pasta *src*, e remover, **na linha 7** deste arquivo, a sequência de caracteres **"src."**.
+Além disso, excute o comando:
+```shell
+	pip install -r requirements.txt
+``` 
+Caso dê algum erro de permissão, execute o comando acima precedido pela expressão *sudo* e um espaço em branco à direita.
 
-Um bom processo de trabalho em desenvolvimento de software começa com a preparação de um ambiente adequado de programação. 
++ Como rodar o coletor de dados do Instagram:
+	```shell
+		cd src
+		python main.py
+	```
+	Os dados coletados por esse programa ficam registrados na pasta *Dados/dados_gerais/csv/*.
++ Como rodar o coletor de stories do Instagram:
+	```shell
+		cd src/stories
+		python stories.py
+	```
+	Será perguntado ao usuário qual o nome do arquivo de saída. Caso queira algum específico, basta digitá-lo e teclar ENTER, com o detalhe de que *nomes com símbolos que não letras ou números sem acento* podem causar erro na execução do programa. Portanto, use apenas letras (sem acento ou símbolos especiais (cedilha por exemplo) ) e números.
+	Em caso de erro durante o download das stories, o seguinte procedimento deve ser feito:
+		1. navegue até a pasta **Dados**, que se localiza no mesmo nível hierárquico que a pasta *src*.
+		2. A partir dess ponto, entre pasta *dados_gerais* e depois na pasta *csv*.
+		3. Delete o último arquivo criado.
+		4. Volte ao *terminal* e entre novamente o nome do arquivo para guardar os dados.
+	Caso queira abortar o programa em algum momento, pressione as teclas *Ctrl*/*Command* e, com elas pressionadas, pressione a tecla *C*.
 
-### Instalar pacotes básicos
-
-* [python 3.6](https://www.python.org/)
-* [pip](https://pypi.python.org/pypi/pip)
-* [virtualenv](https://virtualenv.pypa.io/en/stable/userguide/)
-* [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/)
-
-O [Henrique Bastos](https://github.com/henriquebastos) fez [uma postagem super relevante sobre organização de ambientes python](https://medium.com/welcome-to-the-django/guia-definitivo-para-organizar-meu-ambiente-python-a16e2479b753). Vale a leitura.
-
-### Clonar repositório
-
+## Rodando no docker
+	
+Primeiramente, copie os arquivos *Dockerfile* e *docker-compose.yml* para um diretório um nível acima da pasta *instagram-data-monitor*, a qual deve conter diversas pastas incluindo a *src*.  
+Após isso, execute o comando:
+```shell
+	docker build -t insta:v0 .
 ```
-$ git clone git@github.com:code4pol/instagram-data-monitor.git
+Isso irá gerar uma imagem, a qual será usada sempre que se deseja rodar a aplicação. Após isso, digite o comando:
+```shell
+	docker-compose run insta bash
 ```
-
-### Criar virtual env
-
+Isso irá iniciar um (*container*)[]. A partir deste container, basta seguir as instruções de como rodar os coletores de dados normalmente, conforme expicado nas seções **Como rodar o coletor de dados do Instagram** e **Como rodar o coletor de stories do Instagram**. Os dados ficarão armazenados nas mesmas pastas que ficariam caso o não fossem rodados os coletores via docker.  
+Para sair do conteiner, digite o comando 
+```shell
+	exit
 ```
-$ mkvirtualenv instagram-data-monitor
-$ workon instagram-data-monitor
-```
-
-### Instalar dependências
-
-Todas as bibliotecas de que o projeto depende estão listadas no arquivo [requirements.txt](requirements.txt). Para instalá-las, execute:
-
-```
-$ cd instagram-data-monitor
-$ pip install -r requirements.txt
-```
-
-## Acesso à API do Instagram
-
-Acesse [a página de desenvolvedores do Instagram](https://instagram.com/developer/register/) para registrar a aplicação que lhe possibilitará acesso à API da plataforma. 
-
-Após registro da aplicação, atualize o arquivo [instagram.py](instagram/instagram.py) com suas infos particulares.
-
-```
-insta_user='YOUR_USERNAME'         # Seu usuário no Instagram
-insta_password='YOUR_PASSWORD'     # Sua senha no Instagram
-client_id='YOUR_CLIENT_ID'.        # O client_id fornecido pelo Instagram para a aplicação registrada
-redirect_uri='YOUR_REDIRECT_ID'    # A _redirect URI_ informada por você para a aplicação registrada. 
-                                   # Não sabe o que é isso? Faz parte do protocolo OAuth2. Google it!
-```
-
-## Selenium
-
-O projeto utiliza a biblioteca [Selenium](https://www.seleniumhq.org/) para obteção do __access_token__ necessário para acesso à API, o que requer a utilização de um navegador web. Foi escolhido o Google Chrome em sua opção __headless__. É preciso que você ajuste o path de execução do navegador na opção `chrome_options.binary_location` do arquivo [instagram.py](instagram/instagram.py). Caso você não tenha o Google Chrome instalado, será necessário configurar o Selenium para utilização de [outra opção de web browser](http://selenium-python.readthedocs.io/api.html).
-
-Independente do browser escolhido, é necessário o download do webdriver necessário para que o Selenium saiba interagir com ele. No caso do Google Chrome, os drivers estão disponíveis [na página do projeto](https://sites.google.com/a/chromium.org/chromedriver/home). Percebam que consta atualmente em nosso repositório apenas os drivers do Google Chrome para o MacOS. Caso você utilize outro sistema operacional, também que [fazer o download de driver compatível](https://chromedriver.storage.googleapis.com/index.html?path=2.35/).
-
-## Executar os testes
-
-Todos os testes foram desenvolvidos utilizando a biblioteca [unittest](https://docs.python.org/3/library/unittest.html) nativa do Python. Para executá-los, a partir da pasta raiz do projeto, execute:
-
-```
-$ python -m unittest discover tests
-```
-
-Sugiro darem uma olhada [nesta ótima introdução ao unittest](http://pythontesting.net/framework/unittest/unittest-introduction/)
-
-## ToDo
-
-Este é apenas um esqueleto de projeto para que o grupo comece a trabalhar. Resta ainda muito trabalho a ser feito. Algumas ideias: 
-
-* Corrigir testes quebrados
-* Complementar testes
-* Remover código hard-coded
-* Corrigir código replicado
-* Otimizar execução de tarefas que não precisam ser executadas várias vezes
-* Remover mensagens de DeprecationWarning
-* Expandir quantidade dos dados buscados
-* Explorar novas possibilidades de coleta
-* Avaliar estratégia de uso da API. Qual a diferença da estratégia utilizada para o projeto [twitter-data-monitor](https://github.com/code4pol/twitter-data-monitor)?
-* Criar interface CLI para execução do programa
-* Implementar mecanismo para automatização da coleta recorrente dos dados
-* Persistir dados coletados em base estruturada
-* Viabilizar interface de integração da base de dados criada com canal para geração de informações visuais
-
-## Licença
-
-Código disponível sob [Licença MIT](LICENSE)
-
-
+ou mantenha pressionado a tecla *Ctrl*/*Cmd* e, enquanto isso, aperte a tecla *D*.
