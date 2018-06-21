@@ -2,7 +2,7 @@ from src.flask.actors_actor import app
 import unittest
 import json
 
-class TestActorsActor(unittest,Testcase):
+class TestActorsActor(unittest.Testcase):
 	def setUp(self):
 		self.app = app.test_client()
 		self.app.testing = True
