@@ -6,7 +6,7 @@
     <img src="https://img.shields.io/badge/platform-macOS%20%7C%20Linux-lightgrey.svg"/>
   </p>
 </p>
-[Link para a apresentalção.][https://docs.google.com/presentation/d/19jL7eFgalxyI_MnBZe61Lcw9wLAHcRc20fDnlbgSW0M/edit?usp=sharing]
+[Link para a apresentalção.](https://docs.google.com/presentation/d/19jL7eFgalxyI_MnBZe61Lcw9wLAHcRc20fDnlbgSW0M/edit?usp=sharing)
 Instagram Data Monitor
 ----------------------
 
