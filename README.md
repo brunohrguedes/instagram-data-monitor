@@ -28,4 +28,4 @@ de Software do Departamento de Ciência da Computação da UnB no 1º semestre d
 Para contribuir com o repositório, favor leia o arquivo
 [CONTRIBUTING to resocie instagram-data-monitor](CONTRIBUTING.md) antes.
 
-[Link para a apresentalção](https://docs.google.com/presentation/d/19jL7eFgalxyI_MnBZe61Lcw9wLAHcRc20fDnlbgSW0M/edit?usp=sharing)
+[Link para a apresentação interna.](https://docs.google.com/presentation/d/19jL7eFgalxyI_MnBZe61Lcw9wLAHcRc20fDnlbgSW0M/edit?usp=sharing)
