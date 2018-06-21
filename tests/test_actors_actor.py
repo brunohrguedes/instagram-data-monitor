@@ -1,5 +1,5 @@
-from src.flask.actors_actor import app
 import unittest
+from src.flask.actors_actor import app
 import json
 
 class TestActorsActor(unittest.Testcase):
