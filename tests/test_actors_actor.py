@@ -14,5 +14,5 @@ class TestActorsActor(unittest,Testcase):
 		result = self.app.get('/actors/nenhum')
 
 
-if __name__ == '__main__'
+if __name__ == '__main__':
 	unittest.main()
