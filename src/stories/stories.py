@@ -164,7 +164,7 @@ class InstagramScraper(object):
         return 0
 
 
-    def scrape(self, file , folder='../../Dados/stories/csv/'):
+    def scrape(self, file , folder='../../data/stories/csv/'):
         """Crawls through and downloads user's media"""
         agora = datetime.now()
         data = str(agora.day)+'-'+str(agora.month)+'-'+str(agora.year)
