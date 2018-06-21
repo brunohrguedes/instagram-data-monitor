@@ -82,6 +82,7 @@ def remove_actor_from_list(url):
 def write_in_file(filename, data):
     with codecs.open(CSV_ACTORS_PATH + filename + '.csv', 'w', "utf-8") as file:
         file.write('Nome real da conta,Conta,Seguidores,Seguindo,Postagens\n')
+        string = ''
         if data.followers != 0:
             string = (fix_str(data.fullname) + ',' + 'https://www.instagram.com/' +
                     fix_str(data.name) + '/,' + str(data.followers) + ',' + str(data.following) + ',' +
