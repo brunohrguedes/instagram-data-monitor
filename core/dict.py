@@ -60,22 +60,21 @@ DIGITO['\\u00fa'] = 'ú'
 DIGITO['\\u00fb'] = 'û'
 DIGITO['\\u00fc'] = 'ü'
 
-DIC = DIGITO # Apenas um alias, para ficar mais mnemonico
-
-# Constante para somar com o inicio: 6
+DIC = DIGITO
 
 def to_utf8(string):
+    """Convert a string to UTF-8""""
     idx = []
     iterator = re.finditer('\\\\u....', string)
     idx = [i.start() for i in iterator]
 
     if len(idx) == 0:
-        return string  # Se nao tem utf-8 quebrado, a string esta certa
+        return string
 
     i = 0
     right_string = ''
 
-    for j in idx: # Onde comeca o slice
+    for j in idx:
         fatia = string[j:j + 6]
         utf_right = DIC[fatia]
         right_string = right_string + string[i:j] + utf_right

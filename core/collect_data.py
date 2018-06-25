@@ -16,6 +16,7 @@ EXISTENT_ACTORS = 'atores_lista'
 NONEXISTENT_ACTORS = 'actores_removidos'
 
 def actor_from_url(url):
+    """Return the data obtained by the actor url""""
     actor_url = exists_url(url)
     delete_all_html()
     html = download_html(url, actor_url)
@@ -23,12 +24,14 @@ def actor_from_url(url):
     return result
 
 def exists_url(url):
+    """Checks if the url exists""""
     try:
         return re.findall(r'\.com\/(.*)\/', url)[0]
     except:
         return False
 
 def download_html(url, actor):
+    """Download the html for the url and the actor""""
     try:
         html = open(wget.download(url=url, out=actor+".html"), 'r').read()
         return html
@@ -40,6 +43,7 @@ def download_html(url, actor):
 
 
 def parser(html, actor):
+    """Parse the html for the respective actor""""
     if html == None:
         return None
 
@@ -50,16 +54,19 @@ def parser(html, actor):
     return Actor(actor, fullname, posts, followers, following)
 
 def delete_all_html():
+    """Delete all html files downloaded""""
     try:
         os.system("rm *.html")
     except:
         pass
 
 def create_folder():
+    """If folder don't exists, create it""""
     if not os.path.exists(CSV_ACTORS_PATH):
         os.makedirs(CSV_ACTORS_PATH)
 
 def return_list_of_actors():
+    """Return the list of existing actors""""
     actors = []
     with open(DATA_PATH + EXISTENT_ACTORS, 'r') as list_file:
         for line in list_file:
@@ -68,6 +75,7 @@ def return_list_of_actors():
     return actors
 
 def remove_actor_from_list(url):
+    """Remove actor that no long exists from the list""""
     file = open(DATA_PATH + EXISTENT_ACTORS, 'r')
     urls = file.readlines()
     file.close()
@@ -80,6 +88,7 @@ def remove_actor_from_list(url):
 
 
 def write_in_file(filename, data):
+    """Write the data in the file with actor name and date""""
     with codecs.open(CSV_ACTORS_PATH + filename + '.csv', 'w', "utf-8") as file:
         file.write('Nome real da conta,Conta,Seguidores,Seguindo,Postagens\n')
         string = ''
@@ -91,6 +100,7 @@ def write_in_file(filename, data):
         file.close()
 
 def collect_data():
+    """Collect the data for every actor""""
     delete_all_html()
     create_folder()
     
