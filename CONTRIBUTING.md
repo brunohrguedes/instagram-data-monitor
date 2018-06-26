@@ -39,7 +39,7 @@ $ pip install -r requirements.txt
 abaixo. Os dados coletados ficam registrados na pasta *data/actors_info/csv/*.
 
 ```
-$	python -m src/main.py
+$	python main.py
 ```
 
 - Para coletar stories dos atores do ``Instagram`` execute o comando
@@ -49,9 +49,16 @@ de que apenas *nomes sem caracteres especiais (acento, cedilha, etc)* serão
 aceitos.
 
 ```
-$ python -m src/stories.py
+$ cd src/stories/
+$ python stories.py
 ```
 
+Digite o nome do arquivo no qual se deseja gravar as stories e tecle **ENTER**.  
+O arquivo será salvo na posta *data/stories/csv/*, e seu nome será o que foi digitado previamente.  
+Para retorna à pasta principal da projeto, pasta essa em que se estava quando o comando *python main.py* foi inserido, digite seguido por ENTER:  
+```
+$ cd ../../
+```
   Obs.1: Em caso de erro durante o download das stories, o seguinte procedimento
   deve ser feito:
   	1. navegue até a pasta **data**, que se localiza no mesmo nível hierárquico
