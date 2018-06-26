@@ -14,6 +14,7 @@ class FileWriter:
         self.__path__ = path
 
     def write_json(self, content):
+        """Write the content passed in a JSON file"""
         if not content:
             raise Exception(NO_CONTENT)
 

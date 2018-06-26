@@ -1,4 +1,5 @@
 class Actor(object):
+    """Define an actor of interest"""
 
     def __init__(self, name, fullname, posts=0, followers=0, following=0):
         self.name = name

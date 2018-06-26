@@ -6,11 +6,9 @@ sched = BlockingScheduler()
 # def timed_job():
 #     print('This job is run every three minutes.')
 
-@sched.scheduled_job('cron', day_of_week='mon-sun', hour=23)
+@sched.scheduled_job('cron', day_of_week='mon-sun', hour=23, minute=10)
 def scheduled_job():
-    print('Coletar stories e outros dados 11pm.')
-    os.system("python src/main.py")
-    os.system("python src/stories/stories.py")
-    os.system("python src/stories/stories/cvt.py")
+    print('Coletar stories e outros dados 11:10pm.')
+    os.system("python main.py")
 
 sched.start()
