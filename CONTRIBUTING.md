@@ -39,7 +39,7 @@ $ pip install -r requirements.txt
 abaixo. Os dados coletados ficam registrados na pasta *data/actors_info/csv/*.
 
 ```
-$	python main.py
+$ python main.py
 ```
 
 - Para coletar stories dos atores do ``Instagram`` execute o comando
@@ -61,12 +61,12 @@ $ cd ../../
 ```
   Obs.1: Em caso de erro durante o download das stories, o seguinte procedimento
   deve ser feito:
-  	1. navegue até a pasta **data**, que se localiza no mesmo nível hierárquico
+    1. navegue até a pasta **data**, que se localiza no mesmo nível hierárquico
     que a pasta *src*.
-  	2. A partir desse ponto, entre na pasta *acotrs_info* e depois na
+    2. A partir desse ponto, entre na pasta *acotrs_info* e depois na
     pasta *csv*.
-  	3. Delete o último arquivo criado.
-  	4. Volte ao *terminal* e entre novamente o nome do arquivo para guardar
+    3. Delete o último arquivo criado.
+    4. Volte ao *terminal* e entre novamente o nome do arquivo para guardar
     os dados.
 
   Obs.2: Caso queira sair do programa em algum momento, pressione as teclas
@@ -131,8 +131,8 @@ checar seu estilo de código (ver exemplos em [test_pep8](tests/test_pep8.py)).
 Para executar a ferramenta e checar algum código, basta executar:
 
 ```
-$ pip install pycodestyle
-$ pycodestyle [arquivo].py
+$  pip install pycodestyle
+$  pycodestyle [arquivo].py
 ```
 
 
@@ -145,14 +145,14 @@ diversas pastas incluindo a *src*.
 Após isso, execute o comando:
 
 ```
-$	docker build -t insta:v0 .
+$  docker build -t insta:v0 .
 ```
 
 Isso irá gerar uma imagem, a qual será usada sempre que se deseja rodar a
 aplicação. Após isso, digite o comando:
 
 ```
-$	docker-compose run insta bash
+$  docker-compose run insta bash
 ```
 
 Isso irá iniciar um (*container*)[]. A partir deste container, basta seguir as
@@ -166,14 +166,32 @@ Para sair do conteiner, digite o comando abaixo ou mantenha pressionado a
 tecla *Ctrl*/*Cmd* e, enquanto isso, aperte a tecla *D*.
 
 ```
-$	exit
+$  exit
 ```
 
-## Leitura recomendada
+## Dívida técnica
+
+- Automatizar a coleta dos dados utilizando o [heroku](https://dashboard.heroku.com/login).
+- Implementar rotas para que seja possível recuperar os dados
+coletados de forma automatizada pelo *heroku*  por meio de requisições HTTP à aplicação a qual deve estar rodando no *heroku*.
+
+## Em quê posso ajudar?
+
++ Descoberta/correção de bugs
++ Aumento da cobertura de testes
++ Redução da díivida técnica.
+
+
+## Leituras recomendadas
 
 - [docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 - [pós-instalação](https://docs.docker.com/install/linux/linux-postinstall/)
 - [docker-compose](https://docs.docker.com/compose/install/#prerequisites)
 
 No caso de o seu sistema não ser Linux, siga as
-(instruções específicas)[https://docs.docker.com/install] para o seu sistema.
+[instruções específicas](https://docs.docker.com/install) para o seu sistema.
+
+<!-- #### Observação
+
+Note que as linhas que inicial com **$** deve ser esse símbolo removidas antes de serem executadas no terminal.  
+Esse símbolo serve apenas para explicitamente declarar que a linha após esse símbolo é um *comando* para ser executado no terminal. -->
