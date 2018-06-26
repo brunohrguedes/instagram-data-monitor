@@ -63,7 +63,7 @@ DIGITO['\\u00fc'] = 'ü'
 DIC = DIGITO
 
 def to_utf8(string):
-    """Convert a string to UTF-8""""
+    """Convert a string to UTF-8"""
     idx = []
     iterator = re.finditer('\\\\u....', string)
     idx = [i.start() for i in iterator]

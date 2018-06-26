@@ -5,7 +5,7 @@ import re
 import os
 
 try:
-	os.system('mkdir json')
+	os.makedirs('json')
 except:
 	pass
 
